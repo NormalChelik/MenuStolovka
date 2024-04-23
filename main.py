@@ -16,7 +16,7 @@ config_INFO = json.load(open("bot_config.json", "r"))
 async def main() -> None:
     create_tables()
 
-    bot = Bot(token=config_INFO["token"], parse_mode="MarkdownV2")
+    bot = Bot(token=config_INFO["token"], parse_mode="HTML")
 
     dp = Dispatcher(storage=MemoryStorage())
     dp.include_routers(command_router, callback_router)

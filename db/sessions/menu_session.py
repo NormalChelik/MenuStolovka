@@ -12,7 +12,10 @@ def add_dish(name_dish: str, descripton_dish: str, photo_id: str) -> None:
     session.commit()
 
 def check_dish():
-    return session.query(Menu.name_dish, Menu.description_dish, Menu.photo_id_dish).all()
+    try:
+        return session.query(Menu.name_dish, Menu.description_dish, Menu.photo_id_dish).all()
+    except:
+        return '0'
 
 def check_dish_by_name(name_dish: str):
     return session.query(Menu.description_dish, Menu.photo_id_dish).filter(Menu.name_dish == name_dish).one()

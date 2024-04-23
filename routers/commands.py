@@ -13,10 +13,10 @@ command_router = Router()
 
 @command_router.message(Command("start"))
 async def start(message: Message):
-    await message.answer(text=f"Добро пожаловать в меню нашей столовой! Здесь вы можете посмотреть меню и поставить оценку каждому блюду.\nВведите команду /menu.")
+    await message.answer(text=f"Добро пожаловать в меню нашей столовой! Здесь вы можете посмотреть меню и поставить оценку каждому блюду. Введите команду /menu.")
 
 @command_router.message(Command("addDish"))
-async def start(message: Message, state: FSMContext):
+async def addDish(message: Message, state: FSMContext):
     await message.answer(text=f"Введите название блюда:")
     await state.set_state(MenuStates.name_dish_state)
 
@@ -43,10 +43,10 @@ async def input_photo_dish(message: Message, state: FSMContext, bot: Bot):
 
     await bot.send_photo(chat_id=message.chat.id,
                          photo=data["photo_dish_state"],
-                         caption=f"*Название блюда:* {data['name_dish_state']}\n\n*Описание блюда:* {data['description_dish_state']}")
+                         caption=f"<b>Название блюда:</b> {data['name_dish_state']}\n\n<b>Описание блюда:</b> {data['description_dish_state']}")
 
     await state.clear()
 
 @command_router.message(Command("menu"))
 async def menu(message: Message):
-    await message.answer(text=f"*МЕНЮ СТОЛОВОЙ МИИТ*", reply_markup=create_menu_kb())
+    await message.answer(text=f"<b>МЕНЮ СТОЛОВОЙ МИИТ</b>", reply_markup=create_menu_kb())

@@ -11,6 +11,7 @@ class Menu(Base):
 
 class ScoreMenu(Base):
     __tablename__ = 'score_dish'
-    user_id = Column(Integer, primary_key=True, nullable=False)
+    id = Column(Integer, primary_key=True)
+    user_id = Column(Integer, nullable=False)
     name_dish = Column(Text, nullable=False)
     score_dish = Column(Integer, nullable=False)
