@@ -12,23 +12,20 @@ callback_router = Router()
 async def click_dish(clbq: CallbackQuery, bot: Bot):
     if clbq.data in [k[0] for k in check_dish()]:
         if not check_user_score(clbq.from_user.id, clbq.data):
-            await bot.send_photo(chat_id=clbq.from_user.id,
-                                 photo=check_dish_by_name(clbq.data)[1],
-                                 caption=f"<b>Название блюда:</b> {clbq.data}\n\n<b>Описание блюда:</b> {check_dish_by_name(clbq.data)[0]}\n<b>Оценка:</b> {check_count_score(clbq.data)}/10",
+            await bot.send_message(chat_id=clbq.from_user.id,
+                                 text=f"<b>Название блюда:</b> {clbq.data}\n\n<b>Описание блюда:</b> {check_dish_by_name(clbq.data)[0]}\n<b>Оценка:</b> {check_count_score(clbq.data)}/10",
                                  reply_markup=create_score_kb(clbq.data))
         else:
-            await bot.send_photo(chat_id=clbq.from_user.id,
-                                 photo=check_dish_by_name(clbq.data)[1],
-                                 caption=f"<b>Название блюда:</b> {clbq.data}\n\n<b>Описание блюда:</b> {check_dish_by_name(clbq.data)[0]}\n<b>Оценка:</b> {check_count_score(clbq.data)}/10")
+            await bot.send_message(chat_id=clbq.from_user.id,
+                                 text=f"<b>Название блюда:</b> {clbq.data}\n\n<b>Описание блюда:</b> {check_dish_by_name(clbq.data)[0]}\n<b>Оценка:</b> {check_count_score(clbq.data)}/10")
 
     if clbq.data in [f"score_{i}_{k[0]}" for k in check_dish() for i in range(11)]:
-        print(clbq.data.split("_")[1])
         add_score(user_id=clbq.from_user.id,
                   name_dish=clbq.data.split("_")[2],
                   score=int(clbq.data.split("_")[1]))
 
-        await clbq.message.edit_caption(
-              caption=f"<b>Название блюда:</b> {clbq.data.split('_')[2]}\n\n<b>Описание блюда:</b> {check_dish_by_name(clbq.data.split('_')[2])[0]}\n<b>Оценка:</b> {check_count_score(clbq.data.split('_')[2])}/10",
+        await clbq.message.edit_text(
+              text=f"<b>Название блюда:</b> {clbq.data.split('_')[2]}\n\n<b>Описание блюда:</b> {check_dish_by_name(clbq.data.split('_')[2])[0]}\n<b>Оценка:</b> {check_count_score(clbq.data.split('_')[2])}/10",
               reply_markup=None)
 
 def check_count_score(dish):
