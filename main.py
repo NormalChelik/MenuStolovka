@@ -25,7 +25,9 @@ async def main() -> None:
                          descripton_dish=menu_file[i + 1],
                          photo_id="0")
         except:
-            break
+            add_dish(name_dish=menu_file[i],
+                     descripton_dish=menu_file[i + 1],
+                     photo_id="0")
 
     bot = Bot(token=config_INFO["token"], parse_mode="HTML")
 
