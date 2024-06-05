@@ -19,10 +19,13 @@ async def main() -> None:
     create_tables()
 
     for i in range(0, len(menu_file), 2):
-        if not check_dish_by_name(menu_file[i]):
-            add_dish(name_dish=menu_file[i],
-                     descripton_dish=menu_file[i + 1],
-                     photo_id="0")
+        try:
+            if not check_dish_by_name(menu_file[i]):
+                add_dish(name_dish=menu_file[i],
+                         descripton_dish=menu_file[i + 1],
+                         photo_id="0")
+        except:
+            break
 
     bot = Bot(token=config_INFO["token"], parse_mode="HTML")
 
